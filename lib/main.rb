@@ -2,10 +2,17 @@
 
 require 'active_record'
 
+require_relative './models/campaign'
+require_relative './../lib/save_discrepancies'
+
 class Main
 
   def initialize
     ActiveRecord::Base.establish_connection(db_configuration["development"])
+  end
+
+  def show_discrepancies
+    SaveDiscrepancies.call
   end
 
   def db_configuration
@@ -15,4 +22,4 @@ class Main
 end
 
 main = Main.new
-main
+puts main.show_discrepancies
